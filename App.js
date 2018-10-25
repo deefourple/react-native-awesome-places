@@ -12,9 +12,7 @@ export default class App extends Component<Props> {
   };
 
   placeNameChangeHandler = val => {
-    this.setState({
-      placeName: val
-    });
+    this.setState({placeName: val});
   };
 
   placeSubmitHandler = () => {
@@ -22,7 +20,8 @@ export default class App extends Component<Props> {
 
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(prevState.placeName)
+        places: prevState.places.concat(prevState.placeName),
+        placeName : ''
       }
     })
   };
