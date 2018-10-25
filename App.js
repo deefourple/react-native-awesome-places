@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -12,7 +12,8 @@ type Props = {};
 export default class App extends Component<Props> {
 
   state = {
-    placeName : ''
+    placeName : '',
+    places : [],
   };
 
   placeNameChangeHandler = val => {
@@ -21,14 +22,38 @@ export default class App extends Component<Props> {
     });
   };
 
+  placeSubmitHandler = () => {
+    if (this.state.placeName.trim() === "") return;
+
+    this.setState(prevState => {
+      return {
+        places: prevState.places.concat(prevState.placeName)
+      }
+    })
+  };
+
   render() {
+
+    const placesOutput = this.state.places.map((place, index) => <Text key={index}>{ place }</Text>);
+
     return (
       <View style={styles.container}>
-        <TextInput
-            style={{width: 300, borderColor: 'black', borderWidth: 1}}
-            value={this.state.placeName}
-            onChangeText={this.placeNameChangeHandler}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+              style={styles.inputStyle}
+              value={this.state.placeName}
+              placeholder="Awesome Place"
+              onChangeText={this.placeNameChangeHandler}
+          />
+          <Button
+              style={styles.buttonStyle}
+              title="Add"
+              onPress={this.placeSubmitHandler}
+          />
+        </View>
+        <View>
+          {placesOutput}
+        </View>
       </View>
     );
   }
@@ -36,19 +61,22 @@ export default class App extends Component<Props> {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 50,
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  inputContainer : {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  inputStyle : {
+    width: '70%',
+  },
+  buttonStyle : {
+    width: '30%',
   },
 });
