@@ -1,21 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import ListItem from '../ListItem/ListItem';
 
 
-type Props = {};
-export default class List extends Component<Props> {
+const List = (props) => {
+  const placesOutput = props.places.map((place, index) => (<ListItem placeName={place} key={index}/>));
 
-  render() {
-    const placesOutput = this.props.places.map((place, index) => ( <ListItem placeName={place} key={index} /> ))
+  return (
+    <View style={styles.listContainer}>
+      {placesOutput}
+    </View>
+  )
 
-    return (
-        <View style={styles.listContainer}>
-          { placesOutput }
-        </View>
-    )
-  }
-}
+
+};
 
 const styles = StyleSheet.create({
   listContainer : {
@@ -23,3 +21,5 @@ const styles = StyleSheet.create({
     padding: 20
   },
 });
+
+export default  List

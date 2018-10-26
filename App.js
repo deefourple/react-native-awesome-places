@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 import List from './src/components/List/List'
+import InputArea from './src/components/InputArea/InputArea'
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -27,25 +28,14 @@ export default class App extends Component<Props> {
   };
 
   render() {
-
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput
-              style={styles.inputStyle}
-              value={this.state.placeName}
-              placeholder="Awesome Place"
-              onChangeText={this.placeNameChangeHandler}
-          />
-          <Button
-              style={styles.buttonStyle}
-              title="Add"
-              onPress={this.placeSubmitHandler}
-          />
-        </View>
-
+        <InputArea
+            placeNameChangeHandler={this.placeNameChangeHandler}
+            placeSubmitHandler={this.placeSubmitHandler}
+            placeName={this.state.placeName}
+        />
         <List places={this.state.places} />
-
       </View>
     );
   }
@@ -58,17 +48,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#FFF',
-  },
-  inputContainer : {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  inputStyle : {
-    width: '70%',
-  },
-  buttonStyle : {
-    width: '30%',
   },
 });
