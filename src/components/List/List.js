@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+
 import ListItem from '../ListItem/ListItem';
 
-
 const List = (props) => {
-  const func = () => {}
 
   const placesOutput = props.places.map((place, index) => (
       <ListItem
           placeName={place}
           key={index}
-          onItemPressed={func}
+          onItemPressed={() => props.onItemDeleted(index)}
       />
   ));
 
