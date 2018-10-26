@@ -4,15 +4,21 @@ import ListItem from '../ListItem/ListItem';
 
 
 const List = (props) => {
-  const placesOutput = props.places.map((place, index) => (<ListItem placeName={place} key={index}/>));
+  const func = () => {}
+
+  const placesOutput = props.places.map((place, index) => (
+      <ListItem
+          placeName={place}
+          key={index}
+          onItemPressed={func}
+      />
+  ));
 
   return (
     <View style={styles.listContainer}>
       {placesOutput}
     </View>
   )
-
-
 };
 
 const styles = StyleSheet.create({
