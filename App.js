@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import List from './src/components/List/List'
 import InputArea from './src/components/InputArea/InputArea'
+import phImage from './src/assets/japan.jpg';
 
 type Props = {};
 export default class App extends Component<Props> {
@@ -21,8 +22,12 @@ export default class App extends Component<Props> {
 
     this.setState(prevState => {
       return {
-        places: prevState.places.concat({name: prevState.placeName, key: Math.random().toString()}),
-        placeName : ''
+        places: prevState.places.concat({
+          name: prevState.placeName,
+          key: Math.random().toString(),
+          image : phImage
+        }),
+        placeName : '',
       }
     })
   };
@@ -33,7 +38,7 @@ export default class App extends Component<Props> {
         places : prevState.places.filter(place => place.key !== key)
       }
     })
-  }
+  };
 
   render() {
     return (
