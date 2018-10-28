@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
       return {
           ...state,
         places : state.places.filter(place => place.key !== state.placeSelected.key),
-        selectedPlace : null
+        placeSelected : null
       };
     case SELECT_PLACE :
       return {
@@ -33,7 +33,7 @@ const reducer = (state = initialState, action) => {
     case DESELECT_PLACE :
       return {
           ...state,
-        selectedPlace : null
+        placeSelected : null
       };
     default :
       return state;
