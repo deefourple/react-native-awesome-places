@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
       return {
           ...state,
         selectedPlace : null
-      }
+      };
     default :
       return state;
   }
