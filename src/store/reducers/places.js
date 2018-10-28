@@ -1,4 +1,4 @@
-import { ADD_PLACE, DELETE_PLACE, SELECT_PLACE, DESELECT_PLACE } from '../actions/actionTypes';
+import { ADD_PLACE, DELETE_PLACE } from '../actions/actionTypes';
 import phImage from "../../assets/japan.jpg";
 
 const initialState = {
@@ -23,16 +23,6 @@ const reducer = (state = initialState, action) => {
       return {
           ...state,
         places : state.places.filter(place => place.key !== state.placeSelected.key),
-        placeSelected : null
-      };
-    case SELECT_PLACE :
-      return {
-          ...state,
-        placeSelected : state.places.find(place => place.key === action.placeKey)
-      };
-    case DESELECT_PLACE :
-      return {
-          ...state,
         placeSelected : null
       };
     default :
