@@ -3,8 +3,7 @@ import phImage from "../../assets/japan.jpg";
 
 const initialState = {
   placeName : '',
-  places : [],
-  placeSelected : null
+  places : []
 };
 
 const reducer = (state = initialState, action) => {
@@ -23,7 +22,6 @@ const reducer = (state = initialState, action) => {
       return {
           ...state,
         places : state.places.filter(place => place.key !== state.placeSelected.key),
-        placeSelected : null
       };
     default :
       return state;
