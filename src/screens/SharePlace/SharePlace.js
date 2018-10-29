@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 
 import { addPlace } from '../../store/actions/index';
-import DefaultInput from '../../components/UI/DefaultInput';
 import MainText from '../../components/UI/MainText';
 import HeadingText from '../../components/UI/HeadingText';
-import ImagePlaceholder from '../../assets/japan.jpg';
+import PlaceInput from '../../components/InputArea/InputArea';
+import PickImage from '../../components/PickImage/PickImage';
+import PickLocation from '../../components/PickLocation/PickLocation';
 
 class SharePlaceScreen extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class SharePlaceScreen extends Component {
     }
   };
 
-  // placeAddedHandler = placeName => this.props.onAddPlace(placeName);
+  placeAddedHandler = placeName => this.props.onAddPlace(placeName);
 
   render() {
     return (
@@ -32,26 +33,17 @@ class SharePlaceScreen extends Component {
             <HeadingText>Share a Place with us!</HeadingText>
           </MainText>
 
-          <View style={styles.placeHolder}>
-            <Image source={ImagePlaceholder} style={styles.previewImage}/>
-          </View>
+          <PickImage />
+
+          <PickLocation />
+
+          <PlaceInput />
 
           <View style={styles.button}>
-            <Button title="Pick Image" />
-          </View>
-
-          <View style={styles.placeHolder}>
-            <Text>Map</Text>
-          </View>
-
-          <View style={styles.button}>
-            <Button title="Locate Me"/>
-          </View>
-
-          <DefaultInput placeholder="PlaceName" />
-
-          <View style={styles.button}>
-            <Button title="Share the Place!" />
+            <Button
+                title="Share the Place!"
+                onPress={() => alert('button')}
+            />
           </View>
 
         </ScrollView>
@@ -63,20 +55,6 @@ const styles = StyleSheet.create({
   container : {
     flex: 1,
     alignItems: 'center'
-  },
-  placeHolder : {
-    borderWidth: 1,
-    borderColor: '#000',
-    backgroundColor: '#eee',
-    width: '80%',
-    height: 150,
-  },
-  button : {
-    margin: 8,
-  },
-  previewImage : {
-    width: '100%',
-    height: '100%',
   }
 });
 
