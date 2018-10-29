@@ -1,23 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import DefaultInput from '../../components/UI/DefaultInput'
 
-export default class InputArea extends Component {
+const InputArea = props => (
+  <DefaultInput
+      placeholder="Place Name"
+      value={props.placeName}
+      onChangeText={props.onChangeText}
+  />
+);
 
-  state = {
-    placeName: ''
-  };
-
-  placeNameChangedHandler = val => {
-    this.setState({placeName: val});
-  };
-
-render() {
-  return (
-      <DefaultInput
-          placeholder="Place Name"
-          value={this.state.placeName}
-          onChangeText={this.placeNameChangedHandler}
-      />
-  )}
-};
+export default InputArea;
