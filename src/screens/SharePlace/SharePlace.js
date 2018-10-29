@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, Image } from 'react-native';
 import { connect } from 'react-redux';
 
-import PlaceInput from '../../components/InputArea/InputArea';
 import { addPlace } from '../../store/actions/index';
+import DefaultInput from '../../components/UI/DefaultInput';
+import MainText from '../../components/UI/MainText';
+import HeadingText from '../../components/UI/HeadingText';
+import ImagePlaceholder from '../../assets/japan.jpg';
 
 class SharePlaceScreen extends Component {
   constructor(props) {
@@ -19,23 +22,68 @@ class SharePlaceScreen extends Component {
     }
   };
 
-  placeAddedHandler = placeName => {
-    this.props.onAddPlace(placeName);
-  };
+  // placeAddedHandler = placeName => this.props.onAddPlace(placeName);
 
   render() {
     return (
-        <View>
-          <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-        </View>
+        <ScrollView contentContainerStyle={styles.container}>
+
+          <MainText>
+            <HeadingText>Share a Place with us!</HeadingText>
+          </MainText>
+
+          <View style={styles.placeHolder}>
+            <Image source={ImagePlaceholder} style={styles.previewImage}/>
+          </View>
+
+          <View style={styles.button}>
+            <Button title="Pick Image" />
+          </View>
+
+          <View style={styles.placeHolder}>
+            <Text>Map</Text>
+          </View>
+
+          <View style={styles.button}>
+            <Button title="Locate Me"/>
+          </View>
+
+          <DefaultInput placeholder="PlaceName" />
+
+          <View style={styles.button}>
+            <Button title="Share the Place!" />
+          </View>
+
+        </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container : {
+    flex: 1,
+    alignItems: 'center'
+  },
+  placeHolder : {
+    borderWidth: 1,
+    borderColor: '#000',
+    backgroundColor: '#eee',
+    width: '80%',
+    height: 150,
+  },
+  button : {
+    margin: 8,
+  },
+  previewImage : {
+    width: '100%',
+    height: '100%',
+  }
+});
 
 const mapDispatchToProps = dispatch => {
   return {
     onAddPlace: (placeName) => dispatch(addPlace(placeName)),
   }
-}
+};
 
 export default connect(null, mapDispatchToProps)(SharePlaceScreen);
