@@ -3,8 +3,14 @@ import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 
 const ButtonWithBackground = props => (
   <TouchableOpacity onPress={props.onPress}>
-    <View style={[styles.button, {backgroundColor: props.color}]}>
-      <Text>{props.children}</Text>
+    <View
+        style={[
+          styles.button,
+          { backgroundColor: props.color },
+          props.disabled ? styles.disabled : null
+        ]}
+    >
+      <Text style={props.disabled ? styles.disabledText : null}>{props.children}</Text>
     </View>
   </TouchableOpacity>
 );
@@ -17,6 +23,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#000'
   },
+  disabled: {
+    backgroundColor: "#eee",
+    borderColor: "#aaa"
+  },
+  disabledText: {
+    color: "#aaa"
+  }
 });
 
 export default ButtonWithBackground;
