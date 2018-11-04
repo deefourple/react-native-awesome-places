@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ImageBackground, Button, StyleSheet } from 'react-native'
+import { View, ImageBackground, Dimensions, StyleSheet } from 'react-native'
 
 import startMainTabs from '../MainTabs/startMainTabs';
 import DefaultInput from '../../components/UI/DefaultInput';
@@ -13,12 +13,20 @@ class AuthScreen extends Component {
   loginHandler = () => startMainTabs();
 
   render() {
+    let headingText = null;
+
+    if (Dimensions.get('window').height < 500) {
+      return (
+        <MainText>
+          <HeadingText>Please Log In</HeadingText>
+        </MainText>
+      );
+    };
     return (
         <View style={styles.container}>
           <ImageBackground source={brickImage} style={styles.backgroundImage}>
-            <MainText>
-              <HeadingText>Please Log In</HeadingText>
-            </MainText>
+            { headingText }
+
             <ButtonWithBg
                 onPress={this.loginHandler}
                 color="#29aaf4"
@@ -30,14 +38,16 @@ class AuthScreen extends Component {
                   style={styles.input}
                   placeholder="Your E-Mail Address"
               />
-              <DefaultInput
-                  style={[styles.input]}
-                  placeholder="Password"
-              />
-              <DefaultInput
-                  style={styles.input}
-                  placeholder="Confirm Password"
-              />
+              <View style={styles.passwordContainer}>
+                <DefaultInput
+                    style={[styles.input]}
+                    placeholder="Password"
+                />
+                <DefaultInput
+                    style={styles.input}
+                    placeholder="Confirm Password"
+                />
+              </View>
             </View>
             <ButtonWithBg
                 color="#29aaf4"
@@ -55,18 +65,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImage : {
+  backgroundImage: {
     width: '100%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputContainer : {
+  inputContainer: {
     width: '80%',
   },
   input: {
     backgroundColor: '#eee',
     borderColor:'#bbb',
+  },
+  passwordContainer: {
+    flexDirection:  Dimensions.get('window').height > 500 ? 'column' : 'row'
   }
 });
 
