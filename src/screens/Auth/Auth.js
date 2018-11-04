@@ -131,6 +131,7 @@ class AuthScreen extends Component {
           onChangeText={val => this.updateInputState("confirmPassword", val)}
           valid={this.state.controls.confirmPassword.valid}
           touched={this.state.controls.confirmPassword.touched}
+          secureTextEntry
       />
     }
     return (
@@ -151,6 +152,9 @@ class AuthScreen extends Component {
                   onChangeText={val => this.updateInputState("email", val)}
                   valid={this.state.controls.email.valid}
                   touched={this.state.controls.email.touched}
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  keyboardType='email-address'
               />
               <View style={styles.passwordContainer}>
                 <DefaultInput
@@ -160,6 +164,8 @@ class AuthScreen extends Component {
                     onChangeText={val => this.updateInputState("password", val)}
                     valid={this.state.controls.password.valid}
                     touched={this.state.controls.password.touched}
+                    secureTextEntry
+
                 />
                 {confirmPasswordControl}
               </View>
