@@ -7,6 +7,7 @@ import HeadingText from '../../components/UI/HeadingText';
 import MainText from '../../components/UI/MainText';
 import ButtonWithBg from '../../components/UI/ButtonWithBg';
 import brickImage from '../../assets/bricks.jpg';
+import validate from '../../utils/validation';
 
 class AuthScreen extends Component {
 
@@ -43,13 +44,35 @@ class AuthScreen extends Component {
   loginHandler = () => startMainTabs();
 
   updateInputState = (key, val) => {
+    let connectedValues = {};
+    if (this.state.controls[key].validationRules.equalTo) {
+      const equalControl = this.state.controls[key].validationRules.equalTo;
+      const equalValue = this.state.controls[equalControl].value;
+      connectedValues = {
+          ...connectedValues,
+        equalTo: equalValue
+      };
+    }
+    if (key === 'password') {
+      connectedValues = {
+        ...connectedValues,
+        equalTo: val
+      };
+    }
     this.setState(prevState => {
       return {
         controls: {
             ...prevState.controls,
+          confirmPassword: {
+            ...prevState.controls.confirmPassword,
+            valid: key === 'password' ?
+                validate(prevState.controls.confirmPassword.value, prevState.controls.confirmPassword.validationRules, connectedValues) :
+                prevState.controls.confirmPassword.valid
+          },
           [key]: {
               ...prevState.controls[key],
-              value: value
+              value: val,
+              valid: validate(val, prevState.controls[key].validationRules, connectedValues ),
           }
         }
       }
@@ -81,16 +104,20 @@ class AuthScreen extends Component {
                   style={styles.input}
                   placeholder="Your E-Mail Address"
                   value={this.state.controls.email.value}
-                  onChangeTextHandler={(val) => this.updateInputState('email', val)}
+                  onChangeText={(val) => this.updateInputState('email', val)}
               />
               <View style={styles.passwordContainer}>
                 <DefaultInput
                     style={[styles.input]}
                     placeholder="Password"
+                    value={this.state.controls.password.value}
+                    onChangeText={(val) => this.updateInputState('password', val)}
                 />
                 <DefaultInput
                     style={styles.input}
                     placeholder="Confirm Password"
+                    value={this.state.controls.confirmPassword.value}
+                    onChangeText={(val) => this.updateInputState('confirmPassword', val)}
                 />
               </View>
             </View>
