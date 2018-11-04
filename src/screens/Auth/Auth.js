@@ -10,7 +10,51 @@ import brickImage from '../../assets/bricks.jpg';
 
 class AuthScreen extends Component {
 
+  state = {
+    controls: {
+      email : {
+        value: '',
+        valid: false,
+        validationRules: {
+          isEmail: true
+        }
+      },
+      password : {
+        value: '',
+        valid: false,
+        validationRules: {
+          minLength: 6,
+        }
+      },
+      confirmPassword: {
+        value: '',
+        valid: false,
+        validationRules: {
+          equalTo: 'password'
+        }
+      }
+    }
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
   loginHandler = () => startMainTabs();
+
+  updateInputState = (key, val) => {
+    this.setState(prevState => {
+      return {
+        controls: {
+            ...prevState.controls,
+          [key]: {
+              ...prevState.controls[key],
+              value: value
+          }
+        }
+      }
+    })
+  };
 
   render() {
     let headingText = null;
@@ -26,7 +70,6 @@ class AuthScreen extends Component {
         <View style={styles.container}>
           <ImageBackground source={brickImage} style={styles.backgroundImage}>
             { headingText }
-
             <ButtonWithBg
                 onPress={this.loginHandler}
                 color="#29aaf4"
@@ -37,6 +80,8 @@ class AuthScreen extends Component {
               <DefaultInput
                   style={styles.input}
                   placeholder="Your E-Mail Address"
+                  value={this.state.controls.email.value}
+                  onChangeTextHandler={(val) => this.updateInputState('email', val)}
               />
               <View style={styles.passwordContainer}>
                 <DefaultInput
